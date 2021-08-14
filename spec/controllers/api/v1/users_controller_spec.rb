@@ -90,15 +90,15 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   describe "PUT #update" do
     let(:user) { User.create! valid_attributes }
-    context "with valid params" do
+    context "with new valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
+        {email: 'test@test.org', password: 'newpass123'} }
 
       it "updates the requested user" do
         put :update, params: {id: user.to_param, user: new_attributes}, session: valid_session
         user.reload
-        skip("Add assertions for updated state")
+        expect(response).to have_http_status(:ok)
+        expect(response.content_type).to eq('application/json; charset=utf-8')
       end
 
       it "renders a JSON response with the user" do
